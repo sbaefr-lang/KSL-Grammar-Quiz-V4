@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>1과 문법 퀴즈 20문항</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f7f4fb;color:#28243a;font-family:"Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.wrap{max-width:960px;margin:auto;padding:24px 18px 60px}header{padding:25px 28px;border-radius:20px;background:#8062b4;color:#fff}
+header h1{margin:0 0 7px}.group{margin-top:28px}h2{font-size:21px;color:#5e438a;border-bottom:2px solid #ded4ec;padding-bottom:8px}
+.card{background:#fff;border:1px solid #e1d9eb;border-radius:16px;padding:20px;margin:13px 0;box-shadow:0 4px 15px rgba(60,40,90,.05)}
+.top{display:flex;justify-content:space-between}.num{font-weight:800;color:#7453a8}.tag{font-size:12px;background:#eee8f6;padding:4px 9px;border-radius:20px}
+.comic{display:block;width:100%;max-width:760px;max-height:430px;object-fit:contain;margin:16px auto 18px;border-radius:10px}
+.question{font-size:17px;font-weight:700;margin:12px 0 14px}.choice{position:relative;display:flex;gap:10px;align-items:flex-start;border:1px solid #ddd4e9;border-radius:11px;padding:11px 12px;margin:8px 0;cursor:pointer}
+.choice:hover{background:#faf8fd}input{position:absolute;opacity:0}.sq{width:19px;height:19px;border:2px solid #8874a8;border-radius:3px;flex:none;margin-top:2px}
+input:checked+.sq{background:#7654ac;border-color:#7654ac}input:checked+.sq::after{content:"✓";display:block;color:#fff;text-align:center;font-size:13px;line-height:15px}
+.choice.correct{background:#edf8f1;border-color:#6cab84}.choice.wrong{background:#fff0f1;border-color:#d67d88}
+.feedback{display:none;margin-top:10px;font-weight:700}.feedback.show{display:block}.actions{text-align:center;margin:30px}
+button{border:0;border-radius:11px;padding:12px 23px;font-size:16px;font-weight:800;cursor:pointer}#grade{background:#7654ac;color:white}#reset{margin-left:8px;background:#eae3f3;color:#584376}
+#result{text-align:center;font-size:26px;font-weight:900;color:#674795;margin:22px}
+.right-tools{display:flex;gap:7px;align-items:center}
+.hint-btn{padding:4px 10px;border:0;border-radius:999px;background:#7d60b0;color:white;font-size:12px;font-weight:800;cursor:pointer}
+.hint-box{display:none;margin:8px 0 12px;padding:10px 12px;border-radius:10px;background:#f3eef9;color:#594477;font-size:14px;border-left:4px solid #8a6bbb}
+.hint-box.show{display:block}
+.feedback{padding:10px 12px;border-radius:10px}
+.feedback.good{background:#edf8f1;color:#276b46}
+.feedback.bad{background:#fff1f2;color:#9b3e49}
+
+.choice-num{
+  display:inline-block;
+  min-width:16px;
+  font-weight:800;
+  color:#4f4362;
+  margin-left:-3px;
+  margin-right:2px;
+}
+
+header{position:relative}
+.print-btn{
+  position:absolute;
+  right:24px;
+  top:24px;
+  background:#fff;
+  color:#68469b;
+  border:0;
+  border-radius:10px;
+  padding:9px 15px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+.print-btn:hover{background:#f3edf9}
+@media print{
+  body{background:#fff}
+  .wrap{max-width:none;padding:0}
+  .print-btn,.hint-btn,.actions,#result{display:none !important}
+  .hint-box{display:none !important}
+  .card{box-shadow:none;break-inside:avoid;page-break-inside:avoid}
+}
+
+/* A4 인쇄 최적화 */
+@page{
+  size:A4 portrait;
+  margin:9mm 10mm;
+}
+@media print{
+  html,body{
+    width:210mm;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+    font-size:9pt !important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .wrap{
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+  header{
+    padding:8mm 7mm !important;
+    margin:0 0 4mm !important;
+    border-radius:4mm !important;
+  }
+  header h1{
+    font-size:18pt !important;
+    margin:0 0 1.5mm !important;
+  }
+  header div{
+    font-size:9pt !important;
+  }
+  .group{
+    margin-top:4mm !important;
+  }
+  h2{
+    font-size:12pt !important;
+    margin:0 0 2mm !important;
+    padding-bottom:1.5mm !important;
+  }
+  .card{
+    padding:4mm !important;
+    margin:2.5mm 0 !important;
+    border-radius:3mm !important;
+    box-shadow:none !important;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .top{
+    margin-bottom:1mm !important;
+  }
+  .num{
+    font-size:9.5pt !important;
+  }
+  .comic{
+    width:auto !important;
+    max-width:92% !important;
+    max-height:78mm !important;
+    margin:2.5mm auto 3mm !important;
+    object-fit:contain !important;
+  }
+  .question{
+    font-size:10pt !important;
+    line-height:1.4 !important;
+    margin:2mm 0 2.5mm !important;
+  }
+  .choice{
+    gap:2mm !important;
+    padding:2mm 2.5mm !important;
+    margin:1.3mm 0 !important;
+    border-radius:2mm !important;
+    font-size:9pt !important;
+    line-height:1.35 !important;
+  }
+  .sq{
+    width:4mm !important;
+    height:4mm !important;
+    margin-top:.3mm !important;
+  }
+  .choice-num{
+    min-width:3.5mm !important;
+    font-size:9pt !important;
+  }
+  .feedback,.hint-box,.hint-btn,.actions,#result,.print-btn{
+    display:none !important;
+  }
+}
+</style></head><body><div class="wrap">
+<header><h1>1과 문법 퀴즈</h1><div>필수 문법 12문제 + 더 배워요 4문제 + 필수 문법 종합 4문제 · 총 20문제</div><button class="print-btn" onclick="window.print()" type="button">인쇄하기</button></header>
+<section class="group"><h2>1. A/V-아서/어서 그런지</h2><div class="card" data-answer="1" data-explain="정답은 ‘어제 늦게 자서 그런지 … 졸려요’입니다. ‘-아서/어서 그런지’는 원인·이유를 추측할 때 씁니다.">
+<div class="top"><span class="num">문제 1</span><span class="right-tools"><button class="hint-btn" data-target="hint-1" type="button">힌트</button></span></div>
+<img alt="문법 상황 만화" class="comic" src="images/quiz1.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-1">뒤 내용의 이유를 확실히 말하지 않고 추측하는 표현을 생각해 보세요.</div><div><label class="choice"><input name="q1" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>수업을 들으려다가 잠이 들었어요.</span></label><label class="choice"><input name="q1" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>어제 늦게 자서 그런지 오늘 수업 시간에 계속 졸려요.</span></label><label class="choice"><input name="q1" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>어제 늦게 자는 줄 몰랐어요.</span></label><label class="choice"><input name="q1" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>어제 일찍 잤더라면 오늘 졸렸을 거예요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="3" data-explain="‘자다 → 자서 그런지’가 맞습니다. ‘잤더라면’은 과거 가정, ‘자려다가’는 하려던 행동의 변경을 나타냅니다.">
+<div class="top"><span class="num">문제 2</span><span class="right-tools"><button class="hint-btn" data-target="hint-2" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 알맞은 말을 고르세요.<br/><br/><b>요즘 잠을 잘 못 ______ 수업 시간에 자꾸 졸려요.</b></div><div class="hint-box" id="hint-2">‘자다’가 ‘-아서/어서 그런지’와 어떻게 결합하는지 보세요.</div><div><label class="choice"><input name="q2" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>잤더라면</span></label><label class="choice"><input name="q2" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>자는 줄 몰라서</span></label><label class="choice"><input name="q2" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>자려다가</span></label><label class="choice"><input name="q2" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>자서 그런지</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="1" data-explain="X입니다. ‘-아서/어서 그런지’ 뒤에는 명령문·청유문을 쓰지 않습니다. ‘머리가 아프니까 좀 쉬세요’가 자연스럽습니다.">
+<div class="top"><span class="num">문제 3</span><span class="right-tools"><button class="hint-btn" data-target="hint-3" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>머리가 아파서 그런지 좀 쉬세요.</b></div><div class="hint-box" id="hint-3">‘-아서/어서 그런지’ 뒤에 명령문이 올 수 있는지 생각해 보세요.</div><div><label class="choice"><input name="q3" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q3" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>2. V-는 줄 알다/모르다</h2><div class="card" data-answer="0" data-explain="‘민재가 피아노를 이렇게 잘 치는 줄 몰랐어요’가 맞습니다. ‘-는 줄 모르다’는 어떤 사실을 모르고 있었음을 나타냅니다.">
+<div class="top"><span class="num">문제 4</span><span class="right-tools"><button class="hint-btn" data-target="hint-4" type="button">힌트</button></span></div>
+<img alt="문법 상황 만화" class="comic" src="images/quiz2.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-4">피아노를 잘 친다는 ‘사실을 몰랐다’는 뜻에 알맞은 표현을 고르세요.</div><div><label class="choice"><input name="q4" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>민재가 피아노를 이렇게 잘 치는 줄 몰랐어요.</span></label><label class="choice"><input name="q4" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>민재가 피아노를 잘 쳐서 그런지 기분이 좋아요.</span></label><label class="choice"><input name="q4" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>민재가 피아노를 잘 쳤더라면 좋았을 텐데요.</span></label><label class="choice"><input name="q4" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>민재가 피아노를 치려다가 노래를 불렀어요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="2" data-explain="‘운동을 하는 줄 몰랐어요’가 맞습니다. 현재 동작의 사실 인식에는 동사 뒤에 ‘-는 줄’을 씁니다.">
+<div class="top"><span class="num">문제 5</span><span class="right-tools"><button class="hint-btn" data-target="hint-5" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 가장 알맞은 말을 고르세요.<br/><br/><b>저는 수호가 매일 아침 운동을 ______ 몰랐어요.</b></div><div class="hint-box" id="hint-5">동사 ‘하다’ 뒤에 현재 사실을 나타내는 ‘-는 줄’을 붙여 보세요.</div><div><label class="choice"><input name="q5" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>해서 그런지</span></label><label class="choice"><input name="q5" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>했더라면</span></label><label class="choice"><input name="q5" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>하는 줄</span></label><label class="choice"><input name="q5" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>하려다가</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="0" data-explain="O입니다. ‘축제가 열리는 줄 알고 있었어요’는 그 사실을 알고 있었다는 뜻으로 자연스럽습니다.">
+<div class="top"><span class="num">문제 6</span><span class="right-tools"><button class="hint-btn" data-target="hint-6" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>저는 오늘 학교에서 축제가 열리는 줄 알고 있었어요.</b></div><div class="hint-box" id="hint-6">‘-는 줄 알고 있다’는 어떤 사실을 알고 있다는 뜻입니다.</div><div><label class="choice"><input name="q6" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q6" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>3. A/V-았/었더라면</h2><div class="card" data-answer="3" data-explain="‘우산을 가져왔더라면 비를 맞지 않았을 텐데요’가 맞습니다. 실제 과거와 반대되는 상황을 가정합니다.">
+<div class="top"><span class="num">문제 7</span><span class="right-tools"><button class="hint-btn" data-target="hint-7" type="button">힌트</button></span></div>
+<img alt="문법 상황 만화" class="comic" src="images/quiz3.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-7">실제로는 우산을 가져오지 않은 과거 상황을 반대로 가정해 보세요.</div><div><label class="choice"><input name="q7" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>우산을 안 가져와서 그런지 비를 맞았어요.</span></label><label class="choice"><input name="q7" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>우산을 안 가져오는 줄 몰랐어요.</span></label><label class="choice"><input name="q7" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>우산을 가져오려다가 집에 갔어요.</span></label><label class="choice"><input name="q7" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>우산을 가져왔더라면 비를 맞지 않았을 텐데요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="1" data-explain="‘만나다 → 만났더라면’이 맞습니다. ‘듣다’는 ‘들었더라면’, ‘먹다’는 ‘먹었더라면’입니다.">
+<div class="top"><span class="num">문제 8</span><span class="right-tools"><button class="hint-btn" data-target="hint-8" type="button">힌트</button></span></div>
+<div class="question">다음 중 형태가 바른 것은 무엇입니까?</div><div class="hint-box" id="hint-8">과거 가정 표현 ‘-았/었더라면’의 형태를 확인하세요.</div><div><label class="choice"><input name="q8" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>듣다 → 듣었더라면</span></label><label class="choice"><input name="q8" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>만나다 → 만났더라면</span></label><label class="choice"><input name="q8" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>먹다 → 먹았더라면</span></label><label class="choice"><input name="q8" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>노력하다 → 노력하더라면</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="1" data-explain="X입니다. ‘-았/었더라면’은 이미 지나간 과거 상황의 반대 가정에 씁니다. 미래의 ‘내일’과는 맞지 않습니다.">
+<div class="top"><span class="num">문제 9</span><span class="right-tools"><button class="hint-btn" data-target="hint-9" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>내일 시간이 있었더라면 같이 영화 보러 가요.</b></div><div class="hint-box" id="hint-9">‘-았/었더라면’은 이미 지나간 과거를 가정할 때 사용합니다.</div><div><label class="choice"><input name="q9" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q9" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>4. V-(으)려다가</h2><div class="card" data-answer="2" data-explain="‘햄버거를 시키려다가 … 피자를 같이 먹었어요’가 맞습니다. 처음 의도한 행동이 다른 행동으로 바뀌었습니다.">
+<div class="top"><span class="num">문제 10</span><span class="right-tools"><button class="hint-btn" data-target="hint-10" type="button">힌트</button></span></div>
+<img alt="문법 상황 만화" class="comic" src="images/quiz4.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-10">처음 하려던 행동과 실제로 하게 된 행동이 달라졌는지 보세요.</div><div><label class="choice"><input name="q10" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>햄버거를 먹어서 그런지 배가 불러요.</span></label><label class="choice"><input name="q10" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>친구가 피자를 시키는 줄 몰랐어요.</span></label><label class="choice"><input name="q10" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>햄버거를 시키려다가 친구가 피자를 시켜서 같이 먹었어요.</span></label><label class="choice"><input name="q10" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>햄버거를 먹었더라면 더 좋았을 텐데요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="0" data-explain="‘만들다 → 만들려다가’가 맞습니다. ㄹ 받침 동사는 ‘-려다가’를 씁니다.">
+<div class="top"><span class="num">문제 11</span><span class="right-tools"><button class="hint-btn" data-target="hint-11" type="button">힌트</button></span></div>
+<div class="question">다음 중 형태가 바른 것은 무엇입니까?</div><div class="hint-box" id="hint-11">ㄹ 받침 동사 뒤에는 ‘-려다가’를 씁니다.</div><div><label class="choice"><input name="q11" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>만들다 → 만들려다가</span></label><label class="choice"><input name="q11" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>먹다 → 먹려다가</span></label><label class="choice"><input name="q11" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>앉다 → 앉려다가</span></label><label class="choice"><input name="q11" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>마시다 → 마시으려다가</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="0" data-explain="O입니다. 전화를 하려고 했지만 하지 않고 문자로 바꾸었으므로 ‘-려다가’가 자연스럽습니다.">
+<div class="top"><span class="num">문제 12</span><span class="right-tools"><button class="hint-btn" data-target="hint-12" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>친구에게 전화하려다가 시간이 늦어서 문자만 보냈어요.</b></div><div class="hint-box" id="hint-12">‘전화하려다가 문자만 보냈다’처럼 행동이 바뀌었는지 확인하세요.</div><div><label class="choice"><input name="q12" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q12" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>5. 더 배워요 · A/V-다니</h2><div class="card" data-answer="1" data-explain="‘평소에 공부도 안 하더니 100점을 받다니, 정말 놀라워요!’처럼 뜻밖의 사실에 놀라거나 감탄할 때 ‘-다니’를 씁니다.">
+<div class="top"><span class="num">문제 13</span><span class="right-tools"><button class="hint-btn" data-target="hint-13" type="button">힌트</button></span></div>
+<img alt="공부도 안 하더니 상황 만화" class="comic" src="images/quiz5.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-13">예상하지 못한 사실에 놀라거나 감탄할 때 쓰는 ‘-다니’를 생각해 보세요.</div><div><label class="choice"><input name="q13" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>친구가 열심히 공부했더라면 100점을 받았을 거예요.</span></label><label class="choice"><input name="q13" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>평소에 공부를 잘 안 하던 친구가 시험에서 100점을 받다니, 정말 놀라워요!</span></label><label class="choice"><input name="q13" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>친구가 100점을 받는 줄 몰랐어요.</span></label><label class="choice"><input name="q13" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>시험에 비하면 공부가 쉬워요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="0" data-explain="O입니다. ‘공부하다니’는 ‘공부하다 + -다니’의 자연스러운 결합입니다.">
+<div class="top"><span class="num">문제 14</span><span class="right-tools"><button class="hint-btn" data-target="hint-14" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>매일 열심히 공부하다니, 정말 대단해요!</b></div><div class="hint-box" id="hint-14">‘공부하다’ 뒤에 바로 ‘-다니’를 붙일 수 있습니다.</div><div><label class="choice"><input name="q14" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q14" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>6. 더 배워요 · N-에 비하면</h2><div class="card" data-answer="3" data-explain="‘작년 성적에 비하면 올해 성적이 훨씬 좋아졌어요’가 맞습니다. 비교 대상을 명사로 제시해 변화 정도를 나타냅니다.">
+<div class="top"><span class="num">문제 15</span><span class="right-tools"><button class="hint-btn" data-target="hint-15" type="button">힌트</button></span></div>
+<img alt="문법 상황 만화" class="comic" src="images/quiz6.png"/><div class="question">위 그림을 알맞게 표현한 문장은 무엇입니까?</div><div class="hint-box" id="hint-15">작년과 올해를 비교해 변화 정도를 나타내는 표현을 찾아보세요.</div><div><label class="choice"><input name="q15" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>올해 성적이 좋아서 그런지 기분이 좋아요.</span></label><label class="choice"><input name="q15" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>올해 성적이 90점인 줄 몰랐어요.</span></label><label class="choice"><input name="q15" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>작년에 공부했더라면 90점을 받았을 거예요.</span></label><label class="choice"><input name="q15" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>작년 성적에 비하면 올해 성적이 훨씬 좋아졌어요.</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="1" data-explain="X입니다. 동사 ‘하다’ 뒤에 바로 ‘에 비하면’을 붙일 수 없습니다. ‘열심히 한 것에 비하면 결과가 안 좋아요’처럼 명사형으로 바꿔야 합니다.">
+<div class="top"><span class="num">문제 16</span><span class="right-tools"><button class="hint-btn" data-target="hint-16" type="button">힌트</button></span></div>
+<div class="question">다음 문장이 맞으면 O, 틀리면 X에 체크하세요.<br/><br/><b>열심히 하다에 비하면 결과가 안 좋아요.</b></div><div class="hint-box" id="hint-16">‘-에 비하면’은 명사 뒤에 붙는다는 점을 생각하세요.</div><div><label class="choice"><input name="q16" type="radio" value="0"/><span class="sq"></span><span>O</span></label><label class="choice"><input name="q16" type="radio" value="1"/><span class="sq"></span><span>X</span></label></div><div class="feedback"></div>
+</div></section><section class="group"><h2>7. 필수 문법 종합</h2><div class="card" data-answer="0" data-explain="‘자서 그런지’가 맞습니다. 현재의 피곤함에 대해 늦게 잔 것이 이유일 것이라고 추측합니다.">
+<div class="top"><span class="num">문제 17</span><span class="right-tools"><button class="hint-btn" data-target="hint-17" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 가장 알맞은 표현을 고르세요.<br/><br/><b>어제 늦게 ______ 오늘 아침에 너무 피곤해요.</b></div><div class="hint-box" id="hint-17">피곤한 이유를 추측하는 문맥입니다.</div><div><label class="choice"><input name="q17" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>자서 그런지</span></label><label class="choice"><input name="q17" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>자는 줄 몰라서</span></label><label class="choice"><input name="q17" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>잤더라면</span></label><label class="choice"><input name="q17" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>자려다가</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="2" data-explain="‘치는 줄 몰랐어요’가 맞습니다. 피아노를 잘 친다는 사실을 몰랐다는 뜻입니다.">
+<div class="top"><span class="num">문제 18</span><span class="right-tools"><button class="hint-btn" data-target="hint-18" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 가장 알맞은 표현을 고르세요.<br/><br/><b>지현이가 피아노를 이렇게 잘 ______. 정말 놀랐어요.</b></div><div class="hint-box" id="hint-18">피아노를 잘 친다는 사실을 몰랐다는 뜻입니다.</div><div><label class="choice"><input name="q18" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>쳤더라면</span></label><label class="choice"><input name="q18" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>쳐서 그런지</span></label><label class="choice"><input name="q18" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>치는 줄 몰랐어요</span></label><label class="choice"><input name="q18" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>치려다가</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="1" data-explain="‘왔더라면’이 맞습니다. 실제로는 늦게 와서 지하철을 놓친 과거를 반대로 가정합니다.">
+<div class="top"><span class="num">문제 19</span><span class="right-tools"><button class="hint-btn" data-target="hint-19" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 가장 알맞은 표현을 고르세요.<br/><br/><b>조금만 더 일찍 ______ 지하철을 놓치지 않았을 텐데.</b></div><div class="hint-box" id="hint-19">지나간 과거에 ‘더 일찍 왔다면’이라고 가정하는 문맥입니다.</div><div><label class="choice"><input name="q19" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>와서 그런지</span></label><label class="choice"><input name="q19" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>왔더라면</span></label><label class="choice"><input name="q19" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>오는 줄 몰랐으면</span></label><label class="choice"><input name="q19" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>오려다가</span></label></div><div class="feedback"></div>
+</div><div class="card" data-answer="3" data-explain="‘가려다가’가 맞습니다. 도서관에 가려고 했지만 친구를 만나 카페에 간 상황입니다.">
+<div class="top"><span class="num">문제 20</span><span class="right-tools"><button class="hint-btn" data-target="hint-20" type="button">힌트</button></span></div>
+<div class="question">빈칸에 들어갈 가장 알맞은 표현을 고르세요.<br/><br/><b>도서관에 ______ 친구를 만나서 카페에 갔어요.</b></div><div class="hint-box" id="hint-20">도서관에 가려고 했지만 다른 행동으로 바뀐 상황입니다.</div><div><label class="choice"><input name="q20" type="radio" value="0"/><span class="sq"></span><span class="choice-num">1</span><span>가는 줄 몰랐는데</span></label><label class="choice"><input name="q20" type="radio" value="1"/><span class="sq"></span><span class="choice-num">2</span><span>갔더라면</span></label><label class="choice"><input name="q20" type="radio" value="2"/><span class="sq"></span><span class="choice-num">3</span><span>가서 그런지</span></label><label class="choice"><input name="q20" type="radio" value="3"/><span class="sq"></span><span class="choice-num">4</span><span>가려다가</span></label></div><div class="feedback"></div>
+</div></section>
+<div class="actions"><button id="grade">채점하기</button><button id="reset">다시 풀기</button></div><div id="result"></div></div>
+<script>
+document.querySelectorAll(".hint-btn").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    const box = document.getElementById(btn.dataset.target);
+    box.classList.toggle("show");
+    btn.textContent = box.classList.contains("show") ? "힌트 닫기" : "힌트";
+  });
+});
+
+document.getElementById("grade").onclick=function(){
+ let score=0;
+ document.querySelectorAll(".card").forEach(function(card){
+  const ans=Number(card.dataset.answer),p=card.querySelector("input:checked"),o=card.querySelectorAll(".choice");
+  o.forEach(x=>x.classList.remove("correct","wrong"));o[ans].classList.add("correct");
+  const f=card.querySelector(".feedback");f.classList.add("show");
+  if(p&&Number(p.value)===ans){
+    score++;
+    f.classList.remove("bad"); f.classList.add("good");
+    f.textContent="정답입니다. " + card.dataset.explain;
+  }else{
+    if(p)p.closest(".choice").classList.add("wrong");
+    f.classList.remove("good"); f.classList.add("bad");
+    f.textContent=(p ? "오답입니다. " : "답을 선택하지 않았습니다. ") + card.dataset.explain;
+  }
+ });
+ const pct=Math.round(score/20*100);
+ document.getElementById("result").textContent="맞은 개수: "+score+" / 20  ·  점수: "+pct+"점";
+};
+
+document.getElementById("reset").onclick=function(){
+ document.querySelectorAll("input").forEach(x=>x.checked=false);
+ document.querySelectorAll(".choice").forEach(x=>x.classList.remove("correct","wrong"));
+ document.querySelectorAll(".feedback").forEach(x=>{x.classList.remove("show","good","bad");x.textContent="";});
+ document.querySelectorAll(".hint-box").forEach(x=>x.classList.remove("show"));
+ document.querySelectorAll(".hint-btn").forEach(x=>x.textContent="힌트");
+ document.getElementById("result").textContent="";
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+</script></body></html>
